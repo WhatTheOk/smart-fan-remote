@@ -13,7 +13,7 @@ def on_button_pressed_ab():
             pass
         elif fanData[0] == 1:
             changeAt = 1
-        elif fanData[0] == 2 or 4:
+        elif fanData[0] == 2 or fanData[0] == 4:
             changeAt = 2
         elif fanData[0] == 3:
             changeAt = 3
