@@ -33,6 +33,7 @@ def on_button_pressed_ab():
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 def on_forever():
+    global changeAt
     basic.show_number(fanData[changeAt])
     if changeAt == 0:
         if fanData[changeAt] < 0:
@@ -64,7 +65,7 @@ def on_forever():
             fanData[changeAt] = 99
         elif fanData[changeAt] > 99:
             fanData[changeAt] = fanData[4] + 1
-    if input.light_level() <= 70:
+    if input.light_level() == 0:
         temp = "" + str(fanData[0]) + ("" + str(fanData[1]))
         for i in range(2, 6):
             if fanData[i] < 10:
@@ -73,6 +74,7 @@ def on_forever():
             else:
                 temp += fanData[i]
         radio.send_string(temp)
+        changeAt = 0
 basic.forever(on_forever)
 
 radio.set_group(1)

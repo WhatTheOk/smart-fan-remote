@@ -37,6 +37,7 @@ input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
 })
 basic.forever(function on_forever() {
     let temp: string;
+    
     basic.showNumber(fanData[changeAt])
     if (changeAt == 0) {
         if (fanData[changeAt] < 0) {
@@ -82,7 +83,7 @@ basic.forever(function on_forever() {
         
     }
     
-    if (input.lightLevel() <= 70) {
+    if (input.lightLevel() == 0) {
         temp = "" + ("" + fanData[0]) + ("" + ("" + fanData[1]))
         for (let i = 2; i < 6; i++) {
             if (fanData[i] < 10) {
@@ -94,6 +95,7 @@ basic.forever(function on_forever() {
             
         }
         radio.sendString(temp)
+        changeAt = 0
     }
     
 })
