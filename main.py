@@ -11,11 +11,14 @@ input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_button_pressed_ab():
     if menu == 0:
-        temp = fanData[0] * 10 + fanData[1]
+        temp = "" + fanData[0] + fanData[1]
         for i in range(2, 6):
-            temp *= 100
-            temp += fanData[i]
-        radio.send_number(temp)
+            if fanData[i] < 10:
+                temp += 0
+                temp += fanData[i]
+            else:
+                temp += fanData[i]
+        radio.send_string(temp)
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 radio.set_group(1)

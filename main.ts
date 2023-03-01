@@ -13,14 +13,19 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
-    let temp: number;
+    let temp: string;
     if (menu == 0) {
-        temp = fanData[0] * 10 + fanData[1]
+        temp = "" + fanData[0] + fanData[1]
         for (let i = 2; i < 6; i++) {
-            temp *= 100
-            temp += fanData[i]
+            if (fanData[i] < 10) {
+                temp += 0
+                temp += fanData[i]
+            } else {
+                temp += fanData[i]
+            }
+            
         }
-        radio.sendNumber(temp)
+        radio.sendString(temp)
     }
     
 })
