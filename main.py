@@ -1,16 +1,70 @@
 def on_button_pressed_a():
-    if menu == 0:
-        fanData[0] = (fanData[0] + 1) % 6
-        basic.show_number(fanData[0])
+    fanData[changeAt] -= 1
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_b():
-    if menu == 0:
-        menu = 1
+    fanData[changeAt] += 1
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_button_pressed_ab():
-    if menu == 0:
+    global changeAt
+    if changeAt == 0:
+        if fanData[0] == 0:
+            pass
+        elif fanData[0] == 1:
+            changeAt = 1
+        elif fanData[0] == 2 or 4:
+            changeAt = 2
+        elif fanData[0] == 3:
+            changeAt = 3
+    elif changeAt == 1:
+        changeAt = 0
+    elif changeAt == 2:
+        changeAt = 3
+    elif changeAt == 3:
+        if fanData[0] == 2:
+            changeAt = 0
+        else:
+            changeAt = 4
+    elif changeAt == 4:
+        changeAt = 5
+    elif changeAt == 5:
+        changeAt = 0
+input.on_button_pressed(Button.AB, on_button_pressed_ab)
+
+def on_forever():
+    basic.show_number(fanData[changeAt])
+    if changeAt == 0:
+        if fanData[changeAt] < 0:
+            fanData[changeAt] = 4
+        elif fanData[changeAt] > 4:
+            fanData[changeAt] = 0
+    elif changeAt == 1:
+        if fanData[changeAt] < 1:
+            fanData[changeAt] = 9
+        elif fanData[changeAt] > 9:
+            fanData[changeAt] = 1
+    elif changeAt == 2:
+        if fanData[changeAt] < 0:
+            fanData[changeAt] = 23
+        elif fanData[changeAt] > 23:
+            fanData[changeAt] = 0
+    elif changeAt == 3:
+        if fanData[changeAt] < 0:
+            fanData[changeAt] = 59
+        elif fanData[changeAt] > 59:
+            fanData[changeAt] = 0
+    elif changeAt == 4:
+        if fanData[changeAt] < 0:
+            fanData[changeAt] = 98
+        elif fanData[changeAt] > 98:
+            fanData[changeAt] = 0
+    elif changeAt == 5:
+        if fanData[changeAt] <= fanData[4]:
+            fanData[changeAt] = 99
+        elif fanData[changeAt] > 99:
+            fanData[changeAt] = fanData[4] + 1
+    if input.light_level() <= 70:
         temp = "" + str(fanData[0]) + ("" + str(fanData[1]))
         for i in range(2, 6):
             if fanData[i] < 10:
@@ -19,11 +73,9 @@ def on_button_pressed_ab():
             else:
                 temp += fanData[i]
         radio.send_string(temp)
-input.on_button_pressed(Button.AB, on_button_pressed_ab)
+basic.forever(on_forever)
 
-fanData: List[number] = []
 radio.set_group(1)
 radio.set_transmit_power(7)
-fanData = [0, 5, 2, 30, 15, 25]
-menu = 0
-basic.show_number(fanData[0])
+fanData = [0, 5, 3, 30, 15, 25]
+changeAt = 0
