@@ -1,6 +1,6 @@
 def on_button_pressed_a():
     if menu == 0:
-        fanData[0] = (fanData[0] + 1) % 5
+        fanData[0] = (fanData[0] + 1) % 6
         basic.show_number(fanData[0])
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
@@ -11,7 +11,7 @@ input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_button_pressed_ab():
     if menu == 0:
-        temp = "" + fanData[0] + fanData[1]
+        temp = "" + str(fanData[0]) + ("" + str(fanData[1]))
         for i in range(2, 6):
             if fanData[i] < 10:
                 temp += 0
@@ -21,8 +21,9 @@ def on_button_pressed_ab():
         radio.send_string(temp)
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
+fanData: List[number] = []
 radio.set_group(1)
 radio.set_transmit_power(7)
-fanData = [5, 9, 23, 59, 99, 99]
+fanData = [0, 5, 2, 30, 15, 25]
 menu = 0
 basic.show_number(fanData[0])
