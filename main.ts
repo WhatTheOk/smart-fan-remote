@@ -6,6 +6,7 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     
+    basic.clearScreen()
     if (changeAt == 0) {
         if (fanData[0] == 0) {
             
@@ -84,8 +85,8 @@ basic.forever(function on_forever() {
     }
     
     if (input.lightLevel() == 0) {
-        temp = "" + ("" + fanData[0]) + ("" + ("" + fanData[1]))
-        for (let i = 2; i < 6; i++) {
+        temp = ""
+        for (let i = 0; i < 6; i++) {
             if (fanData[i] < 10) {
                 temp += 0
                 temp += fanData[i]

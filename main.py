@@ -8,6 +8,7 @@ input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_button_pressed_ab():
     global changeAt
+    basic.clear_screen()
     if changeAt == 0:
         if fanData[0] == 0:
             pass
@@ -66,8 +67,8 @@ def on_forever():
         elif fanData[changeAt] > 99:
             fanData[changeAt] = fanData[4] + 1
     if input.light_level() == 0:
-        temp = "" + str(fanData[0]) + ("" + str(fanData[1]))
-        for i in range(2, 6):
+        temp = ""
+        for i in range(6):
             if fanData[i] < 10:
                 temp += 0
                 temp += fanData[i]
