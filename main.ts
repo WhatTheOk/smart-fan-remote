@@ -10,16 +10,21 @@ input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     if (changeAt == 0) {
         if (fanData[0] == 0) {
             
-        } else if (fanData[0] == 1) {
+        } else if (fanData[0] == 1 || fanData[0] == 2) {
             changeAt = 1
-        } else if (fanData[0] == 2 || fanData[0] == 4) {
-            changeAt = 2
         } else if (fanData[0] == 3) {
             changeAt = 4
+        } else if (fanData[0] == 4) {
+            changeAt = 2
         }
         
     } else if (changeAt == 1) {
-        changeAt = 0
+        if (fanData[0] == 1) {
+            changeAt = 0
+        } else {
+            changeAt = 2
+        }
+        
     } else if (changeAt == 2) {
         changeAt = 3
     } else if (changeAt == 3) {
