@@ -1,9 +1,11 @@
 def on_button_pressed_a():
     fanData[changeAt] -= 1
+    checkNum()
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_b():
     fanData[changeAt] += 1
+    checkNum()
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_button_pressed_ab():
@@ -36,9 +38,7 @@ def on_button_pressed_ab():
         changeAt = 0
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
-def on_forever():
-    global changeAt
-    basic.show_number(fanData[changeAt])
+def checkNum():
     if changeAt == 0:
         if fanData[changeAt] < 0:
             fanData[changeAt] = 4
@@ -69,6 +69,10 @@ def on_forever():
             fanData[changeAt] = 99
         elif fanData[changeAt] > 99:
             fanData[changeAt] = fanData[4] + 1
+
+def on_forever():
+    global changeAt
+    basic.show_number(fanData[changeAt])
     if input.light_level() == 0:
         temp = ""
         for i in range(6):

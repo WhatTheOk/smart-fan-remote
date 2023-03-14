@@ -1,8 +1,10 @@
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     fanData[changeAt] -= 1
+    checkNum()
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     fanData[changeAt] += 1
+    checkNum()
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     
@@ -41,10 +43,7 @@ input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     }
     
 })
-basic.forever(function on_forever() {
-    let temp: string;
-    
-    basic.showNumber(fanData[changeAt])
+function checkNum() {
     if (changeAt == 0) {
         if (fanData[changeAt] < 0) {
             fanData[changeAt] = 4
@@ -89,6 +88,12 @@ basic.forever(function on_forever() {
         
     }
     
+}
+
+basic.forever(function on_forever() {
+    let temp: string;
+    
+    basic.showNumber(fanData[changeAt])
     if (input.lightLevel() == 0) {
         temp = ""
         for (let i = 0; i < 6; i++) {
